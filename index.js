@@ -27,21 +27,23 @@ app.get("/search", async (req, res) => {
   const url = withQuery(GIPHY_URL, {
     q: search,
     api_key: API_KEY,
-    limit:10
+    limit: 10,
   });
 
   try {
     const result = await fetch(url);
     const chunkedData = await result.json();
-    const gifUrlArr = chunkedData.data.map(e => e.images.fixed_height.url)
-    console.log(gifUrlArr)
-    return chunkedData;
+    const gifyUrlArr = chunkedData.data.map((e) => {
+      return e.images.fixed_height.url;
+    });
+    return res.render("gif", {
+      gifyUrlArr,
+    });
   } catch (e) {
     console.log(e);
   }
 
   res.status(200);
-  res.end();
 });
 
 app.listen(PORT, () => {

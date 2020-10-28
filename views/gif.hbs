@@ -1,8 +1,8 @@
 <div class="gif-container">
-    {{#each gify}} 
-        <tr>
-            <td>{{this.}}</td>
-        </tr>
+    {{#each gifyUrlArr as |item|}}
+    <tr>
+        <td><img src={{item}}alt="gif-result"></td>
+    </tr>
     {{/each}}
-     <img src="https://media1.giphy.com/media/j5KXVHP198mA2hHtRh/200.gif?cid=45c89961bmvgk339ah5njdyw4pqesfqoqbz9mtizh6eiv61m&rid=200.gif" alt="">
+
 </div>
