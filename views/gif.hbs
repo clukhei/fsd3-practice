@@ -1,8 +1,16 @@
+<h3>Your search of {{ search }}</h3>
+
 <div class="gif-container">
-    {{#each gifyUrlArr as |item|}}
+    {{#if hasContent}}
+    {{#each gifyUrlArr}}
     <tr>
-        <td><img src={{item}}alt="gif-result"></td>
+        <td>
+            <p>{{ this.title}}</p>
+            <img src={{this.url}}alt="gif-result">
+        </td>
     </tr>
     {{/each}}
+    {{else}} <h3>your search returns nothing</h3>
+    {{/if}}
 
 </div>

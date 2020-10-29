@@ -33,17 +33,37 @@ app.get("/search", async (req, res) => {
   try {
     const result = await fetch(url);
     const chunkedData = await result.json();
-    const gifyUrlArr = chunkedData.data.map((e) => {
-      return e.images.fixed_height.url;
+
+    //search Giphy use await
+    /*   const imgs = []
+    for(let d of giphys.chunkedData) {
+      const title = d.title
+      const url = d.images.fixed_height.url // alternative way of writing--> d['images']['fixed_height']['url']
+      imgs.push({title, url})
+    } */
+    const gifyUrlArr = chunkedData.data
+    .filter(e => {
+      return !e.title.includes('Trump')
+    })
+    .map((e) => {
+      return {
+        url: e.images.fixed_height.url,
+        title: e.title,
+      };
     });
+    res.status(200);
+    res.type('text/html')
     return res.render("gif", {
       gifyUrlArr,
+      search,
+      //hasContent: !!gifyUrlArr.length
+      hasContent: gifyUrlArr.length > 0
     });
   } catch (e) {
     console.log(e);
   }
 
-  res.status(200);
+
 });
 
 app.listen(PORT, () => {
